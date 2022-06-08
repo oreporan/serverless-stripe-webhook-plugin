@@ -6,10 +6,12 @@ class ServerlessPlugin {
 
   commands: {};
   hooks: { [key: string]: Function }
+  log: Console;
 
-  constructor(serverless: Serverless, options: any) {
+  constructor(serverless: Serverless, options: any, {log}: {log: Console}) {
     this.serverless = serverless;
     this.options = options;
+    this.log = log;
 
     this.commands = {
       welcome: {
@@ -36,19 +38,19 @@ class ServerlessPlugin {
   }
 
   beforeWelcome() {
-    this.serverless.cli.log("Hello from Serverless!");
+    this.log.info("Hello from Serverless!");
   }
 
   welcomeUser() {
-    this.serverless.cli.log("Your message:");
+    this.log.info("Your message:");
   }
 
   displayHelloMessage() {
-    this.serverless.cli.log(`${this.options.message}`);
+    this.log.info(`${this.options.message}`);
   }
 
   afterHelloWorld() {
-    this.serverless.cli.log("Please come again!");
+    this.log.info("Please come again!");
   }
 }
 
